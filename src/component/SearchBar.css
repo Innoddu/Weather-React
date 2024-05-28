@@ -1,0 +1,63 @@
+.SearchBar {
+    margin-bottom: 20px;
+  }
+.SearchBar-Wrapper {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+
+  }
+.SearchBar input {
+    flex: 1;
+    box-sizing: border-box;
+    border: 1px solid rgb(71, 64, 85);
+    border-radius: 10px;
+    background-color: rgb(187, 187, 202);
+}
+.SearchBar input:focus {
+    outline: none;
+    border: 1px solid #3d6891;
+}
+
+.SearchBar input::placeholder {
+    color: rgb(37, 37, 41);
+}
+
+
+.SearchBar button {
+    cursor: pointer;
+    width: 80px;
+    padding: 3px;
+    border-radius: 10px;
+    border: 1px solid rgb(71, 64, 85);
+    background-color: rgb(187, 187, 202);
+
+}
+  .CitySuggestions {
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    z-index: 1000;
+  }
+  
+  .CitySuggestions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .CitySuggestions li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .CitySuggestions li:hover {
+    background-color: #eee;
+  }
+  
+  .WeatherInfo {
+    margin-top: 20px;
+  }
