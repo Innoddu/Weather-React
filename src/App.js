@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import SearchBar from './component/SearchBar';
@@ -7,16 +7,60 @@ import WeekWeather from './component/WeekWeather'
 
 
 function App() {
+  const [location, setLocation] = useState({lat: null, lon: null})
   const [searchTerm, setSearchTerm] = useState("");
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState([]);
 
-  const handleChange =  async(e) => {
-    setSearchTerm(e.target.value);
-    if (e.target.value) {
-      const apiKey = '89ff43a0bb1a7056b605e80c955feaf0';
-      const url = `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&type=like&sort=population&cnt=5&appid=${apiKey}`;
+  // Get current location
+  const getCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition( (position) => {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+      console.log('current position: lat, lon', lat, lon);
+      setLocation({lat, lon});
+    }, (error) => {
+      console.error("Erorr Getting Current Location", error);
+    }, 
+    {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    }
+    );
+  };
+  useEffect(() => {
+      getCurrentLocation();
+  }, []);
 
+  // Get Weather based on current location
+  const getWeatherByCurrentLocation = async (lat, lon) => {
+    const apiKey = "89ff43a0bb1a7056b605e80c955feaf0"
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+    try {
+      let response = await fetch(url);
+      let data = await response.json();
+      console.log("Current Location Weather data!!", data);
+      setWeather(data); 
+    } catch (error) {
+      console.error("Error Fetching Weather Data on Current Location", error);
+    }
+
+  }
+  useEffect(() => {
+    if (location.lat && location.lon) {
+      getWeatherByCurrentLocation(location.lat, location.lon);
+    }
+  }, [location]);
+
+  // Get City list based on users search
+  const handleChange =  async(e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    // setSearchTerm(e.target.value);
+    if (value) {
+      const apiKey = "89ff43a0bb1a7056b605e80c955feaf0";
+      const url = `https://api.openweathermap.org/data/2.5/find?q=${value}&type=like&sort=population&cnt=5&appid=${apiKey}`;
       try {
         const response = await axios.get(url);
         setCity(response.data.list);
@@ -30,22 +74,31 @@ function App() {
 
   const handleSearch = async () => {
     if (searchTerm) {
-      const apiKey = '89ff43a0bb1a7056b605e80c955feaf0';
+      const apiKey = "89ff43a0bb1a7056b605e80c955feaf0"
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}&units=metric`;
 
       try {
         const response = await axios.get(url);
         setWeather(response.data);
+        // If user click the city, cities will be hidden
+        setCity([]);
+        // If user click the city, clear input text
+        setSearchTerm("");
       } catch (error) {
         console.error("Error fetching the weather data!!", error)
       }
     }
   };
 
+
   return (
     <div className="App">
       <h2>Weather</h2>
-      <SearchBar searchTerm={searchTerm}  handleChange={handleChange} handleSearch={handleSearch} weather={weather}
+      <SearchBar 
+      searchTerm={searchTerm} 
+      handleChange={handleChange} 
+      handleSearch={handleSearch}
+      weather={weather}
       city={city}/>
       {weather &&<CurrentWeather weather={weather}/>}
       <WeekWeather />
