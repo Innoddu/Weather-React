@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ClipLoader from "react-spinners/ClipLoader";
+
 import axios from 'axios';
 import './App.css';
 import SearchBar from './component/SearchBar';
@@ -11,6 +13,10 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [icon, setIcon] = useState("");
+
+ 
 
   // Get current location
   const getCurrentLocation = () => {
@@ -35,17 +41,20 @@ function App() {
 
   // Get Weather based on current location
   const getWeatherByCurrentLocation = async (lat, lon) => {
+    setLoading(true)
     const apiKey = "89ff43a0bb1a7056b605e80c955feaf0"
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
     try {
       let response = await fetch(url);
       let data = await response.json();
+
       console.log("Current Location Weather data!!", data);
       setWeather(data); 
+      setIcon(data.weather[0].icon);
+      setLoading(false);
     } catch (error) {
       console.error("Error Fetching Weather Data on Current Location", error);
-    }
-
+    } 
   }
   useEffect(() => {
     if (location.lat && location.lon) {
@@ -55,15 +64,16 @@ function App() {
 
   // Get City list based on users search
   const handleChange =  async(e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    // setSearchTerm(e.target.value);
-    if (value) {
+
+    setSearchTerm(e.target.value);
+    setSearchTerm(e.target.value);
+    if (e.target.value) {
       const apiKey = "89ff43a0bb1a7056b605e80c955feaf0";
-      const url = `https://api.openweathermap.org/data/2.5/find?q=${value}&type=like&sort=population&cnt=5&appid=${apiKey}`;
+      const url = `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&type=like&sort=population&cnt=5&appid=${apiKey}`;
       try {
         const response = await axios.get(url);
         setCity(response.data.list);
+        console.log("setcity's seticon:", response.data.list)
       } catch (error) {
         console.error("error feching city!!", error)
       }
@@ -80,6 +90,8 @@ function App() {
       try {
         const response = await axios.get(url);
         setWeather(response.data);
+        setIcon(response.data.weather[0].icon);
+        console.error("response.data:", response.data.weather[0].icon)
         // If user click the city, cities will be hidden
         setCity([]);
         // If user click the city, clear input text
@@ -89,18 +101,23 @@ function App() {
       }
     }
   };
+  
+
 
 
   return (
     <div className="App">
-      <h2>Weather</h2>
+      <h2>What is the Today's Weather ?</h2>
       <SearchBar 
       searchTerm={searchTerm} 
       handleChange={handleChange} 
       handleSearch={handleSearch}
       weather={weather}
       city={city}/>
-      {weather &&<CurrentWeather weather={weather}/>}
+      {loading ? 
+      (<ClipLoader color={"black"} loading={loading} size={100} />)
+       : (weather &&<CurrentWeather weather={weather} icon={icon}/>)
+      }
       <WeekWeather />
     </div>
   );

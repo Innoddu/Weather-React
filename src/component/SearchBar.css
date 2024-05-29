@@ -8,11 +8,12 @@
 
   }
 .SearchBar input {
-    flex: 1;
+    /* flex: 1; */
     box-sizing: border-box;
-    border: 1px solid rgb(71, 64, 85);
+    border: 1px solid rgb(195, 190, 206);
     border-radius: 10px;
-    background-color: rgb(187, 187, 202);
+    background-color: rgb(210, 210, 228);
+    height: 27px;
 }
 .SearchBar input:focus {
     outline: none;
@@ -20,7 +21,8 @@
 }
 
 .SearchBar input::placeholder {
-    color: rgb(37, 37, 41);
+    color: rgb(105, 105, 161);
+    font-family: 'ONE-Mobile-POP', sans-serif;
 }
 
 
@@ -36,15 +38,16 @@
 .CitySuggestions {
   display: flex;
   flex-direction: column;
-  background-color: rgb(187, 187, 202);
+  background-color: rgb(210, 210, 228);
   border-radius: 10px;
   box-sizing: border-box;
   border: 1px solid #3d6891;
   border-top: white;
   width: 100%;
-  max-width: 500px;
+  max-width: 800px;
   top: 100%;
   z-index: 1000;
+  color: rgb(105, 105, 161);
 
 }
   
@@ -59,14 +62,18 @@
 .CitySuggestions li {
   padding: 1px;
   margin: 5px;
+  margin-bottom: 1px;
   cursor: pointer;
   border-bottom: 1px solid #3d6891;
+  transition: transform 0.3s ease; 
 }
 .CitySuggestions li:last-child {
   border-bottom: none; /* 마지막 항목은 구분선 제거 */
 }
 
 .CitySuggestions li:hover {
+
   background-color: #eee;
   border-radius: 10px;
+  transform: scale(1.05);
 }

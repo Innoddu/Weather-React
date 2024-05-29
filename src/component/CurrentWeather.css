@@ -1,8 +1,47 @@
 .CurrentWeather {
     display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    gap: 20px;
-    padding-bottom: 20px;
+    /* flex-direction: column;  */
+    /* align-items: center;  */
+    gap: 0px;
+    padding: 0px;
+    margin: 0px; 
+    /* padding-bottom: 10px; */
     border-bottom: 1px solid rgb(240,240,240);
+    border-top: 1px solid rgb(240,240,240);
+}
+.LocationDate-wrapper {
+    display: inline-block;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-left: 50px;
+}
+.LocationDate-wrapper h1 {
+    margin-top: 10px;
+    margin-bottom: 0px; /* Adjust as needed */
+}
+.LocationDate-wrapper p {
+    margin-top: 0; /* Adjust as needed */
+}
+
+.LocationDate-wrapper img {
+    width: 150px;
+    margin-left: 20px;
+}
+
+
+
+.Temp {
+    display: inline-block;
+    margin-left: 120px;
+    margin-top: 0px; 
+
+}
+.Temp h1 {
+    font-size: 4em; /* Adjust the font size as needed */
+    margin-bottom: 1px;
+}
+.Elements {
+    display: inline-block;
+    flex-direction: row; 
+    justify-content: space-between;
 }

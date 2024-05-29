@@ -1,5 +1,13 @@
+@font-face {
+  font-family: 'ONE-Mobile-POP';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
-  max-width: 500px;
+  font-family: 'ONE-Mobile-POP', sans-serif;
+  color: rgb(235, 232, 232);
+  max-width: 800px;
   width: 100%;
   margin: 100px auto;
   border: 1px solid grey;
@@ -7,6 +15,12 @@ body {
   padding: 50px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  background-color: rgb(79, 79, 102);
+  gap: 0px;
+  margin-bottom: 270px;
+  /* background-color: rgb(79, 79, 102); */
+  background: #BE93C5;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #7BC6CC, #BE93C5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #7BC6CC, #BE93C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
 }
+
