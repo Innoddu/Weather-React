@@ -1,0 +1,12 @@
+.WeekWeather {
+    /* display: flex; */
+}
+.week-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.week-wrapper p {
+    text-align: center;
+
+}

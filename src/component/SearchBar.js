@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './SearchBar.css'
 
-const SearchBar = ( {searchTerm, handleChange, handleSearch, city} ) => {
+const SearchBar = ( {searchTerm, handleChange, city, handleCombinedSearch} ) => {
 
     // While listing the cities click other position, then removing cities list
     const wrapperRef = useRef(null);
@@ -17,6 +17,36 @@ const SearchBar = ( {searchTerm, handleChange, handleSearch, city} ) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    // Moving List with Keyboard keys (up and down)
+    // const [selectedIndex, setSelectedIndex] = useState(-1);
+    // const suggestionsRef = useRef([]);
+
+    // const handleKeyDown = (e) => {
+    //     if (e.key === 'ArrowDown') {
+    //         e.preventDefault();
+    //       setSelectedIndex((prevIndex) => Math.min(prevIndex + 1));
+    //     } else if (e.key === 'ArrowUp') {
+    //         e.preventDefault();
+    //       setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    //     } else if (e.key === 'Enter' && selectedIndex >= 0) {
+    //       handleSelectCity(selectedIndex);
+    //     }
+    //   };
+      
+    //   const handleSelectCity = (index) => {
+    //     const selectedCity = city[index];
+    //     handleChange({ target: { value: selectedCity.name }});
+    //     setTimeout(() => {
+    //       handleCombinedSearch();
+    //     }, 0);
+    //   };
+    //   useEffect(() => {
+    //     if (selectedIndex >= 0 && selectedIndex < suggestionsRef.current.length) {
+    //       suggestionsRef.current[selectedIndex].focus();
+    //     }
+    //   }, [selectedIndex, city]);
+
     return (
         <div className="SearchBar" ref={wrapperRef}>
             <div className='SearchBar-Wrapper'>
@@ -27,12 +57,16 @@ const SearchBar = ( {searchTerm, handleChange, handleSearch, city} ) => {
             placeholder="search city..."/>
             {city.length > 0 && (
             <div className="CitySuggestions">
-                <ul onClick={handleSearch}>
-                {city.map((c) => (
-                    <li key={c.id} onClick={() => handleChange({ target: { value: c.name } })}>
-                    {c.name}, {c.sys.country}
-                    </li>
-                ))}
+                <ul>
+                    {city.map((c, index) => (
+                        <li key={c.id} onClick={() => {
+                        setTimeout(() => {
+                            handleCombinedSearch();
+                        }, 0);
+                        }}>
+                        {c.name}, {c.sys.country}
+                        </li>
+                    ))}
                 </ul>
             </div>
             )}

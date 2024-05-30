@@ -10,13 +10,14 @@ body {
   max-width: 800px;
   width: 100%;
   margin: 100px auto;
-  border: 1px solid grey;
+  border: 1px solid whitesmoke;
   box-sizing: border-box;
   padding: 50px;
   display: flex;
   flex-direction: column;
   gap: 0px;
-  margin-bottom: 270px;
+  margin-bottom: 700px;
+  /* margin-top: 150px; */
   /* background-color: rgb(79, 79, 102); */
   background: #BE93C5;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to top, #7BC6CC, #BE93C5);  /* Chrome 10-25, Safari 5.1-6 */

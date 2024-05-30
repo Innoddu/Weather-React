@@ -22,7 +22,7 @@
 
 .SearchBar input::placeholder {
     color: rgb(105, 105, 161);
-    font-family: 'ONE-Mobile-POP', sans-serif;
+     font-family: 'ONE-Mobile-POP', sans-serif;
 }
 
 
@@ -41,7 +41,6 @@
   background-color: rgb(210, 210, 228);
   border-radius: 10px;
   box-sizing: border-box;
-  border: 1px solid #3d6891;
   border-top: white;
   width: 100%;
   max-width: 800px;
@@ -60,11 +59,10 @@
 }
 
 .CitySuggestions li {
-  padding: 1px;
+  padding: 5px;
   margin: 5px;
   margin-bottom: 1px;
   cursor: pointer;
-  border-bottom: 1px solid #3d6891;
   transition: transform 0.3s ease; 
 }
 .CitySuggestions li:last-child {
