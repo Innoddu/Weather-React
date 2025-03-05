@@ -1,5 +1,4 @@
 import './CurrentWeather.css'
-import { Button } from'react-bootstrap';
 import { format } from 'date-fns'
 
 
@@ -11,7 +10,7 @@ const CurrentWeather = ({ weather, icon }) => {
             <div className='LocationDate-wrapper'>
                 <h1>{weather.name}, {weather.sys.country}</h1>
                 <p>{formattedDate}</p>
-                <img className="img-fluid" src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
+                <img className="img-fluid" alt="icon-img"  src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
             </div>
             <div className='Temp'>
                     <h1>{Math.round(weather?.main.temp)} °C</h1>  

@@ -11,11 +11,13 @@ const SearchBar = ( {searchTerm, handleChange, city, handleCombinedSearch} ) => 
             handleChange({ target: {value: ""}});
         }
     };
+    
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

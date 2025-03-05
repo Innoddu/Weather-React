@@ -23,7 +23,7 @@ const WeekWeather = ( { weekWeather } ) => {
                     <div key={w.id}>
                         <p>{timeChange(w.dt)}</p>
                         <p>{Math.round(w.main.temp)} °C</p>
-                        <p><img className="img-fluid" src={`http://openweathermap.org/img/wn/${w.weather[0].icon}@2x.png`} /></p>
+                        <p><img className="img-fluid" alt="icon-img2" src={`http://openweathermap.org/img/wn/${w.weather[0].icon}@2x.png`} /></p>
                     </div>
                 )
                 }

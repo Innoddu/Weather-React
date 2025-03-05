@@ -85,7 +85,7 @@ function App() {
     }
   }, [location]);
 
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedFetch = useCallback(
     debounce(async (value) => {
       if (value) {
@@ -102,7 +102,7 @@ function App() {
         setCity([]);
       }
     }, 300),
-    []
+    [setCity]
   );
 
   const handleChange = (e) => {
