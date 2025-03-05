@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
+import debounce from "lodash.debounce";
 import axios from 'axios';
 import './App.css';
 import SearchBar from './component/SearchBar';
@@ -85,23 +86,37 @@ function App() {
   }, [location]);
 
 
-  // Get City list based on users search
-  const handleChange =  async(e) => {
-    setSearchTerm(e.target.value);
-    if (e.target.value) {
-      const apiKey = "89ff43a0bb1a7056b605e80c955feaf0";
-      const url = `https://api.openweathermap.org/data/2.5/find?q=${e.target.value}&type=like&sort=population&cnt=5&appid=${apiKey}`;
-      try {
-        const response = await axios.get(url);
-        setCity(response.data.list);
-        console.log("setcity's seticon:", response.data.list)
-      } catch (error) {
-        console.error("error feching city!!", error)
+  const debouncedFetch = useCallback(
+    debounce(async (value) => {
+      if (value) {
+        const apiKey = "89ff43a0bb1a7056b605e80c955feaf0";
+        const url = `https://api.openweathermap.org/data/2.5/find?q=${value}&type=like&sort=population&cnt=5&appid=${apiKey}`;
+        try {
+          const response = await axios.get(url);
+          setCity(response.data.list);
+          console.log("City list:", response.data.list);
+        } catch (error) {
+          console.error("Error fetching city!!", error);
+        }
+      } else {
+        setCity([]);
       }
-    } else {
+    }, 300),
+    []
+  );
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    setSearchTerm(newValue);
+
+    if (!newValue) {
       setCity([]);
+      return;
     }
+
+    debouncedFetch(newValue);
   };
+
 
   // Reutrn the result of user search
   const handleSearch = async () => {
@@ -151,17 +166,19 @@ function App() {
 
 
   return (
-    <div className="App">
-      <h2>What is Today's Weather ?</h2>
+    <div className="App" >
+      <h2 style={{ textAlign: "center"}}>What is Today's Weather ?</h2>
       <SearchBar 
       searchTerm={searchTerm} 
       handleChange={handleChange} 
       handleCombinedSearch={handleCombinedSearch}
       city={city}/>
+      <div style={{textAlign: "center"}}>
       {loading ? 
-      (<ClipLoader color={"black"} loading={loading} size={100} />)
+      (<ClipLoader color={"black"} loading={loading} size={60} />)
        : (weather &&<CurrentWeather weather={weather} icon={icon}/>)
       }
+      </div>
       <WeekWeather weekWeather={weekWeather} />
     </div>
   );

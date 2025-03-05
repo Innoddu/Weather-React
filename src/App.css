@@ -1,3 +1,10 @@
+/* @font-face {
+  font-family: 'MangoDdobak-B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+} */
+
 @font-face {
   font-family: 'ONE-Mobile-POP';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
@@ -17,11 +24,8 @@ body {
   flex-direction: column;
   gap: 0px;
   margin-bottom: 700px;
-  /* margin-top: 150px; */
-  /* background-color: rgb(79, 79, 102); */
+  border-radius: 50px;
   background: #BE93C5;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to top, #7BC6CC, #BE93C5);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to top, #7BC6CC, #BE93C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
 }
-
